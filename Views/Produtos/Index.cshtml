@@ -1,0 +1,29 @@
+﻿@model List<LojaOnline.Models.Produto>
+
+@{
+    ViewData["Title"] = "Produtos";
+}
+
+<h2>Produtos Disponíveis</h2>
+
+<div class="row">
+    @foreach (var produto in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="@produto.UrlImagem" class="card-img-top" style="height: 200px; object-fit: cover;" alt="@produto.Nome" />
+                <div class="card-body">
+                    <h5 class="card-title">@produto.Nome</h5>
+                    <p class="card-text">@produto.Descricao</p>
+                    <p class="card-text fw-bold">R$ @produto.Preco</p>
+                </div>
+                <div class="card-footer text-center">
+                    <form asp-controller="Carrinho" asp-action="Adicionar" method="post">
+                        <input type="hidden" name="produtoId" value="@produto.Id" />
+                        <button class="btn btn-success">Adicionar ao Carrinho</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>

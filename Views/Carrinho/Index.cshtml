@@ -1,0 +1,41 @@
+﻿@model List<LojaOnline.Models.ItemCarrinho>
+
+<h2>Seu Carrinho</h2>
+
+@if (!Model.Any())
+{
+    <p class="alert alert-info">Seu carrinho está vazio.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Preço Unitário</th>
+                <th>Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nome</td>
+                    <td>@item.Quantidade</td>
+                    <td>R$ @item.Preco</td>
+                    <td>R$ @(item.Preco* item.Quantidade)</td>
+                    <td>
+                        <form asp-action="Remover" method="post">
+                            <input type="hidden" name="produtoId" value="@item.ProdutoId" />
+                            <button class="btn btn-danger">Remover</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Total: R$ @Model.Sum(i => i.Preco * i.Quantidade)</h4>
+}
