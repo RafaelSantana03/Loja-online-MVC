@@ -11,8 +11,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<BancoDeDados>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<ApplicationUser>()
-    .AddEntityFrameworkStores<BancoDeDados>();
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+})
+.AddEntityFrameworkStores<BancoDeDados>();
+
 
 builder.Services.AddSession(); // <-- Aqui está certo
 
@@ -34,10 +38,15 @@ app.UseSession();          // <-- MOVIDO para cá ✔️
 app.UseAuthentication();   // <-- Faltando para Identity funcionar
 app.UseAuthorization();
 
+app.UseAuthentication(); // antes do UseAuthorization
+app.UseAuthorization();
+      // depois das rotas MVC
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapRazorPages();
 SeedData.Inicializar(app);
 
 app.Run();
