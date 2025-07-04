@@ -47,16 +47,19 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 
+
+
 @if (User.Identity.IsAuthenticated)
 {
-    <form method="post" asp-page="/Account/Logout" asp-area="Identity">
+    <span>Bem-vindo, @User.Identity.Name</span>
+    <form method="post" asp-area="Identity" asp-page="/Account/Logout">
         <button type="submit" class="btn btn-link">Sair</button>
     </form>
 }
 else
 {
-    <a asp-page="/Account/Login" asp-area="Identity">Entrar</a>
-    <a asp-page="/Account/Register" asp-area="Identity">Registrar</a>
+    <a asp-area="Identity" asp-page="/Account/Login">Entrar</a>
+    <a asp-area="Identity" asp-page="/Account/Register">Registrar</a>
 }
 
 </html>

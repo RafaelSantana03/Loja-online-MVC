@@ -2,18 +2,21 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-public class LogoutModel : PageModel
+namespace LojaOnline.Areas.Identity.Pages.Account
 {
-    private readonly SignInManager<ApplicationUser> _signInManager;
-
-    public LogoutModel(SignInManager<ApplicationUser> signInManager)
+    public class LogoutModel : PageModel
     {
-        _signInManager = signInManager;
-    }
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-    public async Task<IActionResult> OnPost()
-    {
-        await _signInManager.SignOutAsync();
-        return RedirectToPage("/Index");
+        public LogoutModel(SignInManager<ApplicationUser> signInManager)
+        {
+            _signInManager = signInManager;
+        }
+
+        public async Task<IActionResult> OnPost()
+        {
+            await _signInManager.SignOutAsync();
+            return LocalRedirect("~/");
+        }
     }
 }
