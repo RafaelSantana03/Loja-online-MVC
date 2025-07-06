@@ -39,3 +39,9 @@ else
 
     <h4>Total: R$ @Model.Sum(i => i.Preco * i.Quantidade)</h4>
 }
+@if (Model.Any())
+{
+    <form asp-action="FinalizarPedido" method="post">
+        <button type="submit" class="btn btn-success">Finalizar Pedido</button>
+    </form>
+}

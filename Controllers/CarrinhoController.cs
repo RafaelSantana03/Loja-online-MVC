@@ -1,17 +1,20 @@
 ﻿namespace LojaOnline.Controllers;
-using Microsoft.AspNetCore.Mvc;
-using LojaOnline.Models;
-using LojaOnline.Extensions;
 using LojaOnline.Data;
+using LojaOnline.Extensions;
+using LojaOnline.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 public class CarrinhoController : Controller
 {
     private readonly BancoDeDados _contexto;
+    private readonly UserManager<ApplicationUser> _userManager;
     private const string CarrinhoSessao = "Carrinho";
 
-    public CarrinhoController(BancoDeDados contexto)
+    public CarrinhoController(BancoDeDados contexto, UserManager<ApplicationUser> userManager)
     {
         _contexto = contexto;
+        _userManager = userManager;
     }
 
     public IActionResult Index()
@@ -62,6 +65,38 @@ public class CarrinhoController : Controller
         return RedirectToAction("Index");
     }
 
+    [HttpPost]
+    public async Task<IActionResult> FinalizarPedido()
+    {
+        var carrinho = ObterCarrinho();
+        if (!carrinho.Any())
+            return RedirectToAction("Index");
+
+        var usuario = await _userManager.GetUserAsync(User);
+
+        var pedido = new Order
+        {
+            UserId = usuario.Id,
+            OrderDate = DateTime.Now,
+            Items = carrinho.Select(item => new OrderItem
+            {
+                ProductId = item.ProdutoId,
+                Quantity = item.Quantidade
+            }).ToList()
+        };
+
+        _contexto.Orders.Add(pedido);
+        await _contexto.SaveChangesAsync();
+
+        HttpContext.Session.Remove(CarrinhoSessao);
+
+        return RedirectToAction("Sucesso");
+    }
+
+    public IActionResult Sucesso()
+    {
+        return View();
+    }
     private List<ItemCarrinho> ObterCarrinho()
     {
         return HttpContext.Session.GetObjetoComoJson<List<ItemCarrinho>>(CarrinhoSessao) ?? new List<ItemCarrinho>();
