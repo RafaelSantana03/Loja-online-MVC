@@ -19,7 +19,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
 })
-.AddEntityFrameworkStores<BancoDeDados>();
+.AddEntityFrameworkStores<BancoDeDados>()
+.AddErrorDescriber<LojaOnline.Utils.IdentityErrorDescriberPtBr>();
 
 // Sessão
 builder.Services.AddSession();

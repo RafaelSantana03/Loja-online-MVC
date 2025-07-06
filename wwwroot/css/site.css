@@ -20,3 +20,33 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.header-user-area {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 100;
+}
+
+.welcome-user {
+    font-weight: 500;
+    color: #333;
+    margin-right: 10px;
+}
+
+.logout-form {
+    display: inline;
+}
+
+.sair-btn {
+    color: #c00;
+    font-weight: bold;
+    border: none;
+    background: none;
+    padding: 0 8px;
+    text-decoration: underline;
+    cursor: pointer;
+}

@@ -10,6 +10,20 @@
 </head>
 <body>
     <header>
+        <div class="header-user-area">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <span class="welcome-user">Bem-vindo, @User.Identity.Name</span>
+                <form method="post" asp-area="Identity" asp-page="/Account/Logout" class="logout-form">
+                    <button type="submit" class="btn btn-link sair-btn">Sair</button>
+                </form>
+            }
+            else
+            {
+                <a asp-area="Identity" asp-page="/Account/Login">Entrar</a>
+                <a asp-area="Identity" asp-page="/Account/Register">Registrar</a>
+            }
+        </div>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">LojaOnline</a>
@@ -47,19 +61,5 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 
-
-
-@if (User.Identity.IsAuthenticated)
-{
-    <span>Bem-vindo, @User.Identity.Name</span>
-    <form method="post" asp-area="Identity" asp-page="/Account/Logout">
-        <button type="submit" class="btn btn-link">Sair</button>
-    </form>
-}
-else
-{
-    <a asp-area="Identity" asp-page="/Account/Login">Entrar</a>
-    <a asp-area="Identity" asp-page="/Account/Register">Registrar</a>
-}
 
 </html>
