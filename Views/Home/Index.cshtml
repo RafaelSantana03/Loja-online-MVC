@@ -4,20 +4,19 @@
     ViewData["Title"] = "Início";
 }
 
-<section class="produtos">
+<section class="produtos-lista container-principal">
     @foreach (var produto in Model)
     {
         <div class="produto">
             <img src="@produto.UrlImagem" alt="@produto.Nome" />
-           
-            <h3>@produto.Nome</h3>
+
+            <h3 class="produto-nome">@produto.Nome</h3>
             <p>@produto.Descricao</p>
-            <p class="preco">R$ @produto.Preco.ToString("F2")</p>
+            <p class="produto-preco">R$ @produto.Preco.ToString("F2")</p>
             <form asp-controller="Carrinho" asp-action="Adicionar" method="post">
                 <input type="hidden" name="produtoId" value="@produto.Id" />
-                <button class="btn btn-dark">Adicionar ao Carrinho</button>
+                <button class="btn btn-dark btn-adicionar">Adicionar ao Carrinho</button>
             </form>
         </div>
-
     }
 </section>

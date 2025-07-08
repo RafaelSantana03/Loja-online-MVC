@@ -137,25 +137,25 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 210px;
     background: #fff;
     border: none;
     box-shadow: 0 2px 6px #0001;
     border-radius: 6px;
-    padding: 15px 10px 20px 10px;
-    width: 100%;
-    max-width: 240px;
-    margin: 0 auto;
+    padding: 15px 5px 20px 5px;
 }
+
 
 
     .produto img {
         width: 200px;
         height: 230px;
         object-fit: contain;
-        margin-bottom: 10px;
+        display: block;
         border-radius: 6px;
         background: #f7f7f7;
     }
+
 
 .produto-nome {
     font-size: 1.08rem;

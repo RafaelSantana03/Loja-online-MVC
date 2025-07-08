@@ -262,10 +262,10 @@ A:\PROJETOS\LojaOnline\obj\Debug\net8.0\staticwebassets.build.json
 A:\PROJETOS\LojaOnline\obj\Debug\net8.0\staticwebassets.build.json.cache
 A:\PROJETOS\LojaOnline\obj\Debug\net8.0\staticwebassets.development.json
 A:\PROJETOS\LojaOnline\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-A:\PROJETOS\LojaOnline\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 A:\PROJETOS\LojaOnline\obj\Debug\net8.0\LojaOnline.csproj.Up2Date
 A:\PROJETOS\LojaOnline\obj\Debug\net8.0\LojaOnline.dll
 A:\PROJETOS\LojaOnline\obj\Debug\net8.0\refint\LojaOnline.dll
 A:\PROJETOS\LojaOnline\obj\Debug\net8.0\LojaOnline.pdb
 A:\PROJETOS\LojaOnline\obj\Debug\net8.0\LojaOnline.genruntimeconfig.cache
 A:\PROJETOS\LojaOnline\obj\Debug\net8.0\ref\LojaOnline.dll
+A:\PROJETOS\LojaOnline\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

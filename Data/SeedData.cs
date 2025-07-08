@@ -24,30 +24,27 @@ public static class SeedData
                 logger.LogInformation("O banco já contém produtos. Seed ignorado.");
                 return;
             }
-
             contexto.Produtos.AddRange(
                 new Produto
                 {
-                    Nome = "Camiseta Oversized Preta",
-                    Descricao = "Camiseta unissex com modelagem oversized e malha premium.",
-                    Preco = 159.90m,
-                    UrlImagem = "/Imagens/5.jpg"
-
-                },
-                new Produto
-                {
-                    Nome = "Camiseta Branca Básica",
-                    Descricao = "Camiseta básica 100% algodão, ideal para o dia a dia.",
-                    Preco = 89.90m,
-                    UrlImagem = "https://via.placeholder.com/300x200.png?text=Camiseta+Branca"
-                },
-                new Produto
-                {
-                    Nome = "Camiseta Logo Streetwear",
-                    Descricao = "Modelo com estampa frontal em silk, referência ao street style.",
+                    Nome = "Camisa Real Madrid 06/07 Manga Longa",
+                    Descricao = "Camisa retrô do Real Madrid, temporada 2006/2007, uniforme reserva com mangas longas. Estilo clássico dos Galácticos.",
                     Preco = 179.90m,
-                    UrlImagem = "/Imagens/5.jpg"
-
+                    UrlImagem = "/imagens/camisetaREALMADRID.jpg"
+                },
+                new Produto
+                {
+                    Nome = "Camisa Milan 2002 Uniforme 2",
+                    Descricao = "Camisa retrô do Milan, uniforme visitante da temporada 2002. Design icônico com detalhes em preto e vermelho.",
+                    Preco = 189.90m,
+                    UrlImagem = "/imagens/CAMISAMILAN.jpg"
+                },
+                new Produto
+                {
+                    Nome = "Camisa PSV Eindhoven 98/99",
+                    Descricao = "Uniforme retrô do PSV Eindhoven, temporada 1998/1999. Modelo clássico que marcou uma era da equipe holandesa.",
+                    Preco = 179.90m,
+                    UrlImagem = "/imagens/camisaPSV.jpg"
                 }
             );
 

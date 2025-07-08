@@ -1,6 +1,8 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
-wwwroot\Imagens\5.jpg
+wwwroot\imagens\CAMISAMILAN.jpg
+wwwroot\imagens\camisaPSV.jpg
+wwwroot\imagens\camisetaREALMADRID.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
