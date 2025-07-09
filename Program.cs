@@ -14,13 +14,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<BancoDeDados>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Identity com ApplicationUser
-builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+// Identity com ApplicationUser e RoleManager
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
 })
-
 .AddEntityFrameworkStores<BancoDeDados>()
+.AddDefaultTokenProviders()
 .AddErrorDescriber<LojaOnline.Utils.IdentityErrorDescriberPtBr>();
 
 // Sessão
@@ -54,10 +54,51 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+// Rota para áreas
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
 // Razor Pages (para páginas de login/registro)
 app.MapRazorPages();
 
-// Seed de dados (opcional, se existir)
+// Seed de dados
 SeedData.Inicializar(app);
+
+// Criação do papel "Admin" e usuário admin padrão
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+    await SeedRolesAndAdminUser(roleManager, userManager);
+}
+
+async Task SeedRolesAndAdminUser(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+{
+    var roleExists = await roleManager.RoleExistsAsync("Admin");
+    if (!roleExists)
+    {
+        await roleManager.CreateAsync(new IdentityRole("Admin"));
+    }
+
+    var adminEmail = "admin@retroshop.com";
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+    if (adminUser == null)
+    {
+        var user = new ApplicationUser
+        {
+            UserName = adminEmail,
+            Email = adminEmail,
+            EmailConfirmed = true
+        };
+
+        var result = await userManager.CreateAsync(user, "Admin123!");
+        if (result.Succeeded)
+        {
+            await userManager.AddToRoleAsync(user, "Admin");
+        }
+    }
+}
 
 app.Run();

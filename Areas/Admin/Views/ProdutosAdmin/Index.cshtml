@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Produto>
+@{
+    ViewData["Title"] = "Gerenciar Produtos";
+}
+
+<h2>Produtos</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Novo Produto</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Imagem</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Nome</td>
+                <td>R$ @p.Preco.ToString("F2")</td>
+                <td><img src="@p.UrlImagem" alt="@p.Nome" style="height:60px;" /></td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@p.Id" class="btn btn-primary btn-sm">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@p.Id" class="btn btn-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
