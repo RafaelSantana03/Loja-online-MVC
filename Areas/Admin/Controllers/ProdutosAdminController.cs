@@ -11,10 +11,13 @@ namespace LojaOnline.Areas.Admin.Controllers
     public class ProdutosAdminController : Controller
     {
         private readonly BancoDeDados _context;
+        private readonly IWebHostEnvironment _webHost;
 
-        public ProdutosAdminController(BancoDeDados context)
+
+        public ProdutosAdminController(BancoDeDados context, IWebHostEnvironment webHost)
         {
             _context = context;
+            _webHost = webHost;
         }
 
         public async Task<IActionResult> Index()
@@ -53,7 +56,7 @@ namespace LojaOnline.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Produto produto)
+        public async Task<IActionResult> Edit(int id, Produto produto, IFormFile? novaImagem)
         {
             if (id != produto.Id) return NotFound();
 
@@ -61,18 +64,41 @@ namespace LojaOnline.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(produto);
+                    var produtoExistente = await _context.Produtos.FindAsync(id);
+                    if (produtoExistente == null) return NotFound();
+
+                    produtoExistente.Nome = produto.Nome;
+                    produtoExistente.Descricao = produto.Descricao;
+                    produtoExistente.Preco = produto.Preco;
+
+                    if (novaImagem != null && novaImagem.Length > 0)
+                    {
+                        var nomeArquivo = Guid.NewGuid().ToString() + Path.GetExtension(novaImagem.FileName);
+                        var caminho = Path.Combine(_webHost.WebRootPath, "imagens", nomeArquivo);
+
+                        using (var stream = new FileStream(caminho, FileMode.Create))
+                        {
+                            await novaImagem.CopyToAsync(stream);
+                        }
+
+                        produtoExistente.UrlImagem = "/imagens/" + nomeArquivo;
+                    }
+
+                    _context.Update(produtoExistente);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_context.Produtos.Any(p => p.Id == id)) return NotFound();
-                    throw;
+                    if (!_context.Produtos.Any(e => e.Id == id)) return NotFound();
+                    else throw;
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(produto);
         }
+
 
         public async Task<IActionResult> Delete(int? id)
         {
@@ -96,7 +122,9 @@ namespace LojaOnline.Areas.Admin.Controllers
                 _context.Produtos.Remove(produto);
                 await _context.SaveChangesAsync();
             }
+
             return RedirectToAction(nameof(Index));
         }
+
     }
 }

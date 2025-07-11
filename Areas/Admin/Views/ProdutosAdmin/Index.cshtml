@@ -27,7 +27,9 @@
                 <td><img src="@p.UrlImagem" alt="@p.Nome" style="height:60px;" /></td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@p.Id" class="btn btn-primary btn-sm">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@p.Id" class="btn btn-danger btn-sm">Excluir</a>
+                    <form asp-action="Delete" asp-route-id="@p.Id" method="post" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir este produto?');">
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
                 </td>
             </tr>
         }

@@ -1,18 +1,33 @@
-﻿@model Produto
+﻿@model LojaOnline.Models.Produto
+
 @{
     ViewData["Title"] = "Excluir Produto";
 }
 
-<h2>Deseja excluir o produto?</h2>
+<h2 class="text-danger">Excluir Produto</h2>
+<hr />
 
-<div>
-    <h4>@Model.Nome</h4>
-    <p>@Model.Descricao</p>
-    <p>Preço: R$ @Model.Preco.ToString("F2")</p>
+<div class="alert alert-warning">
+    <strong>Tem certeza que deseja excluir o produto abaixo?</strong>
 </div>
 
-<form asp-action="DeleteConfirmed" method="post">
+<div class="card mb-4" style="max-width: 500px;">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <img src="@Model.UrlImagem" class="card-img" alt="@Model.Nome" />
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Nome</h5>
+                <p class="card-text">@Model.Descricao</p>
+                <p class="card-text text-muted">Preço: R$ @Model.Preco.ToString("F2")</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form asp-action="Delete" method="post">
     <input type="hidden" asp-for="Id" />
-    <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+    <button type="submit" class="btn btn-danger">Excluir</button>
     <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
 </form>
