@@ -13,7 +13,6 @@ namespace LojaOnline.Areas.Admin.Controllers
         private readonly BancoDeDados _context;
         private readonly IWebHostEnvironment _webHost;
 
-
         public ProdutosAdminController(BancoDeDados context, IWebHostEnvironment webHost)
         {
             _context = context;
@@ -33,10 +32,32 @@ namespace LojaOnline.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Produto produto)
+        public async Task<IActionResult> Create(Produto produto, IFormFile? imagem)
         {
             if (ModelState.IsValid)
             {
+                if (imagem != null && imagem.Length > 0)
+                {
+                    var extensoesPermitidas = new[] { ".jpg", ".jpeg", ".png", ".webp" };
+                    var extensao = Path.GetExtension(imagem.FileName).ToLowerInvariant();
+
+                    if (!extensoesPermitidas.Contains(extensao))
+                    {
+                        ModelState.AddModelError("UrlImagem", "Formato de imagem inválido. Use JPG, JPEG, PNG ou WEBP.");
+                        return View(produto);
+                    }
+
+                    var nomeArquivo = Guid.NewGuid().ToString() + extensao;
+                    var caminho = Path.Combine(_webHost.WebRootPath, "imagens", nomeArquivo);
+
+                    using (var stream = new FileStream(caminho, FileMode.Create))
+                    {
+                        await imagem.CopyToAsync(stream);
+                    }
+
+                    produto.UrlImagem = "/imagens/" + nomeArquivo;
+                }
+
                 _context.Add(produto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -73,13 +94,29 @@ namespace LojaOnline.Areas.Admin.Controllers
 
                     if (novaImagem != null && novaImagem.Length > 0)
                     {
-                        var nomeArquivo = Guid.NewGuid().ToString() + Path.GetExtension(novaImagem.FileName);
+                        var extensoesPermitidas = new[] { ".jpg", ".jpeg", ".png", ".webp" };
+                        var extensao = Path.GetExtension(novaImagem.FileName).ToLowerInvariant();
+
+                        if (!extensoesPermitidas.Contains(extensao))
+                        {
+                            ModelState.AddModelError("UrlImagem", "Formato de imagem inválido. Use JPG, JPEG, PNG ou WEBP.");
+                            return View(produto);
+                        }
+
+                        var nomeArquivo = Guid.NewGuid().ToString() + extensao;
                         var caminho = Path.Combine(_webHost.WebRootPath, "imagens", nomeArquivo);
 
                         using (var stream = new FileStream(caminho, FileMode.Create))
                         {
                             await novaImagem.CopyToAsync(stream);
                         }
+
+                        // ❗ opcional: excluir imagem antiga aqui se quiser
+                        // if (!string.IsNullOrEmpty(produtoExistente.UrlImagem) && produtoExistente.UrlImagem.StartsWith("/imagens/"))
+                        // {
+                        //     var caminhoAntigo = Path.Combine(_webHost.WebRootPath, produtoExistente.UrlImagem.TrimStart('/'));
+                        //     if (System.IO.File.Exists(caminhoAntigo)) System.IO.File.Delete(caminhoAntigo);
+                        // }
 
                         produtoExistente.UrlImagem = "/imagens/" + nomeArquivo;
                     }
@@ -99,14 +136,11 @@ namespace LojaOnline.Areas.Admin.Controllers
             return View(produto);
         }
 
-
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
 
-            var produto = await _context.Produtos
-                .FirstOrDefaultAsync(p => p.Id == id);
-
+            var produto = await _context.Produtos.FirstOrDefaultAsync(p => p.Id == id);
             if (produto == null) return NotFound();
 
             return View(produto);
@@ -119,12 +153,21 @@ namespace LojaOnline.Areas.Admin.Controllers
             var produto = await _context.Produtos.FindAsync(id);
             if (produto != null)
             {
+                // ❗ Remover imagem física associada
+                if (!string.IsNullOrEmpty(produto.UrlImagem) && produto.UrlImagem.StartsWith("/imagens/"))
+                {
+                    var caminhoImagem = Path.Combine(_webHost.WebRootPath, produto.UrlImagem.TrimStart('/'));
+                    if (System.IO.File.Exists(caminhoImagem))
+                    {
+                        System.IO.File.Delete(caminhoImagem);
+                    }
+                }
+
                 _context.Produtos.Remove(produto);
                 await _context.SaveChangesAsync();
             }
 
             return RedirectToAction(nameof(Index));
         }
-
     }
 }

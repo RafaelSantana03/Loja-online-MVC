@@ -1,41 +1,44 @@
 ﻿@model LojaOnline.Models.Produto
-
 @{
     ViewData["Title"] = "Editar Produto";
 }
 
 <h2>Editar Produto</h2>
 
-<form asp-action="Edit" enctype="multipart/form-data">
+<form asp-action="Edit" enctype="multipart/form-data" method="post">
     <input type="hidden" asp-for="Id" />
 
     <div class="form-group">
-        <label asp-for="Nome"></label>
+        <label asp-for="Nome" class="control-label"></label>
         <input asp-for="Nome" class="form-control" />
         <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Descricao"></label>
+        <label asp-for="Descricao" class="control-label"></label>
         <textarea asp-for="Descricao" class="form-control"></textarea>
+        <span asp-validation-for="Descricao" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Preco"></label>
+        <label asp-for="Preco" class="control-label"></label>
         <input asp-for="Preco" class="form-control" />
         <span asp-validation-for="Preco" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label>Imagem Atual:</label><br />
-        <img src="@Model.UrlImagem" alt="@Model.Nome" style="height:100px;" />
-    </div>
+    @if (!string.IsNullOrEmpty(Model.UrlImagem))
+    {
+        <div class="form-group">
+            <label>Imagem atual:</label><br />
+            <img src="@Model.UrlImagem" alt="Imagem do produto" style="height:100px;" />
+        </div>
+    }
 
     <div class="form-group">
-        <label>Nova Imagem (opcional)</label>
-        <input type="file" name="novaImagem" class="form-control-file" />
+        <label>Nova imagem (opcional)</label>
+        <input type="file" name="novaImagem" class="form-control" />
     </div>
 
-    <button type="submit" class="btn btn-primary">Salvar</button>
+    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
     <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
 </form>

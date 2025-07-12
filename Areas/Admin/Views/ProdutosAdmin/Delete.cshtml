@@ -1,33 +1,35 @@
 ﻿@model LojaOnline.Models.Produto
-
 @{
     ViewData["Title"] = "Excluir Produto";
 }
 
-<h2 class="text-danger">Excluir Produto</h2>
+<h2>Excluir Produto</h2>
+
+<h4>Tem certeza que deseja excluir este produto?</h4>
 <hr />
 
-<div class="alert alert-warning">
-    <strong>Tem certeza que deseja excluir o produto abaixo?</strong>
+<div class="form-group">
+    <strong>Nome:</strong> @Model.Nome
 </div>
 
-<div class="card mb-4" style="max-width: 500px;">
-    <div class="row no-gutters">
-        <div class="col-md-4">
-            <img src="@Model.UrlImagem" class="card-img" alt="@Model.Nome" />
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">@Model.Nome</h5>
-                <p class="card-text">@Model.Descricao</p>
-                <p class="card-text text-muted">Preço: R$ @Model.Preco.ToString("F2")</p>
-            </div>
-        </div>
+<div class="form-group">
+    <strong>Preço:</strong> R$ @Model.Preco.ToString("F2")
+</div>
+
+<div class="form-group">
+    <strong>Descrição:</strong> @Model.Descricao
+</div>
+
+@if (!string.IsNullOrEmpty(Model.UrlImagem))
+{
+    <div class="form-group">
+        <strong>Imagem:</strong><br />
+        <img src="@Model.UrlImagem" alt="Imagem do produto" style="max-height:100px;" />
     </div>
-</div>
+}
 
-<form asp-action="Delete" method="post">
+<form asp-action="DeleteConfirmed" method="post">
     <input type="hidden" asp-for="Id" />
-    <button type="submit" class="btn btn-danger">Excluir</button>
+    <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
     <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
 </form>
