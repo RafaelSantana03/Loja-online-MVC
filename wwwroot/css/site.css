@@ -20,6 +20,8 @@ body {
     color: #111;
 }
 
+/* ---------------- CABEÇALHO ---------------- */
+
 .cabecalho {
     width: 100%;
     display: flex;
@@ -95,6 +97,8 @@ body {
     cursor: pointer;
 }
 
+/* ---------------- CONTEÚDO ---------------- */
+
 .container-principal {
     max-width: 1200px;
     margin: 40px auto 0 auto;
@@ -111,14 +115,15 @@ body {
     letter-spacing: 2px;
 }
 
+/* ---------------- PRODUTOS ---------------- */
+
 .produtos-lista {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr); /* Agora são 4 colunas! */
     gap: 40px;
     justify-items: center;
     align-items: stretch;
 }
-
 
 @media (max-width: 1024px) {
     .produtos-lista {
@@ -136,20 +141,22 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 210px;
-    min-height: 460px;
+    width: 100%;
+    max-width: 230px;
+    min-height: 480px;
     background: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     border-radius: 6px;
-    padding: 15px 5px 20px 5px;
+    padding: 15px 10px 20px;
     box-sizing: border-box;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
 }
+
     .produto:hover {
         transform: translateY(-5px);
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
     }
-
 
     .produto img {
         width: 200px;
@@ -160,25 +167,50 @@ body {
         background: #f7f7f7;
     }
 
-
+/*.produto-nome {
+    font-size: 1.08rem;
+    font-weight: 600;
+    margin: 8px 0 6px 0;
+    text-align: center;
+    height: 42px;*/ /* Limita altura */
+    /*overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}*/
 .produto-nome {
     font-size: 1.08rem;
     font-weight: 600;
-    margin: 8px 0 0 0;
+    margin: 8px 0 6px 0;
     text-align: center;
+    max-height: 47px;
+    overflow: hidden;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+
+.produto p {
+    font-size: 0.9rem;
+    height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    margin: 0 0 10px;
 }
 
 .produto-preco {
     font-size: 1rem;
-    margin: 2px 0 10px 0;
     color: #444;
     font-weight: 600;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 .btn-adicionar {
     width: 100%;
-    margin-top: 5px;
+    margin-top: auto;
     font-size: 1rem;
 }
 

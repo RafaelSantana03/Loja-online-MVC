@@ -49,15 +49,16 @@ app.UseSession(); // Sessão vem antes da autenticação
 app.UseAuthentication(); // Autenticação
 app.UseAuthorization();  // Autorização
 
-// Rota padrão para Controllers
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
 // Rota para áreas
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+
+// Rota padrão para Controllers
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 // Razor Pages (para páginas de login/registro)
 app.MapRazorPages();

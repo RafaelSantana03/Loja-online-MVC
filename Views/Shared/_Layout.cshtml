@@ -12,15 +12,30 @@
 <link rel="stylesheet" href="~/css/loja.css" />
 <link rel="stylesheet" href="~/css/site.css" />
 
+@* @if (User.IsInRole("Admin"))
+{
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Index", "ProdutosAdmin", new { area = "Admin" })">
+            Gerenciar Produtos
+        </a>
+    </li>
+}
+ *@
 <body>
     <header class="cabecalho">
         <div class="logo"><a asp-area="" asp-controller="Home" asp-action="Index">RetroStore</a></div>
-        <nav class="menu">
+        <div class="menu">
             <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-            <a asp-area="" asp-controller="Home" asp-action="Index">Produtos</a>
+            <a asp-area="" asp-controller="Produtos" asp-action="Index">Produtos</a>
             <a asp-area="" asp-controller="Carrinho" asp-action="Index">Carrinho</a>
-            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a>
-        </nav>
+            <a asp-area="" asp-controller="Home" asp-action="Privacidade">Privacidade</a>
+
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-area="Admin" asp-controller="ProdutosAdmin" asp-action="Index">Gerenciar Produtos</a>
+            }
+        </div>
+
         <div class="header-user-area">
             @if (User.Identity.IsAuthenticated)
             {
@@ -44,7 +59,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - LojaOnline1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a>
+            &copy; 2025 - RetroShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

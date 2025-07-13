@@ -1,5 +1,10 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\imagens\08797593-89e7-43a9-9486-1352d039097d.jpg
+wwwroot\imagens\12e8401e-13d3-4da4-9090-40c9a3a70bf0.jpg
+wwwroot\imagens\63eaee98-15ea-427c-b723-e81d17f14489.jpg
+wwwroot\imagens\81f0537e-1963-43d2-9cf4-74fd41076a1c.jpg
+wwwroot\imagens\9542deb1-ca96-42f6-81c4-9d81b7efbeb2.jpg
 wwwroot\imagens\CAMISAMILAN.jpg
 wwwroot\imagens\camisaPSV.jpg
 wwwroot\imagens\camisetaREALMADRID.jpg
