@@ -1,21 +1,50 @@
 ﻿@model List<LojaOnline.Models.Produto>
-
 @{
     ViewData["Title"] = "Produtos";
 }
 
-<h2>Produtos Disponíveis</h2>
+<div class="container mt-4">
+    <h2 style="font-family: 'Segoe UI', Arial, Helvetica, sans-serif; font-weight: 700; font-size: 2rem; color: #222; margin-bottom: 30px;">
+       Em Estoque🎽
+    </h2>
+<form method="get" class="mb-4">
+    <form method="get" class="mb-4">
+        <label for="ordenacao">Ordenar por:</label>
+        <select id="ordenacao" name="ordenacao" onchange="this.form.submit()" class="form-select w-auto d-inline mx-2">
+            @{
+                var ordenacao = (string)ViewBag.Ordenacao;
+
+                var opcoes = new Dictionary<string, string>
+                        {
+                        { "", "Padrão" },
+                        { "preco_asc", "Preço: Menor primeiro" },
+                        { "preco_desc", "Preço: Maior primeiro" },
+                        { "nome_asc", "Nome: A-Z" },
+                        { "nome_desc", "Nome: Z-A" }
+                        };
+
+                @foreach (var opcao in opcoes)
+                {
+                    var selected = (ordenacao == opcao.Key) ? "selected" : "";
+                    @Html.Raw($"<option value='{opcao.Key}' {selected}>{opcao.Value}</option>")
+                }
+            }
+        </select>
+    </form>
+
+
+</form>
 
 <div class="row">
     @foreach (var produto in Model)
     {
-        <div class="col-md-4 mb-4">
+        <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <img src="@produto.UrlImagem" class="card-img-top" style="height: 200px; object-fit: cover;" alt="@produto.Nome" />
                 <div class="card-body">
-                    <h5 class="card-title">@produto.Nome</h5>
-                    <p class="card-text">@produto.Descricao</p>
-                    <p class="card-text fw-bold">R$ @produto.Preco</p>
+                    <h5 class="card-title text-center">@produto.Nome</h5>
+                    <p class="card-text text-center">@produto.Descricao</p>
+                    <p class="card-text fw-bold text-center">R$ @produto.Preco.ToString("F2")</p>
                 </div>
                 <div class="card-footer text-center">
                     <form asp-controller="Carrinho" asp-action="Adicionar" method="post">
@@ -25,5 +54,13 @@
                 </div>
             </div>
         </div>
+    }
+</div>
+
+<div class="text-center mt-4">
+    @for (int i = 1; i <= ViewBag.TotalPaginas; i++)
+    {
+        <a class="btn btn-outline-dark mx-1 @(ViewBag.PaginaAtual == i ? "active" : "")"
+           href="@Url.Action("Index", new { pagina = i, ordenacao = ViewBag.Ordenacao })">@i</a>
     }
 </div>
