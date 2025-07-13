@@ -1,1 +1,1 @@
-<img width="1919" height="1079" alt="Captura de tela 2025-07-13 014603" src="https://github.com/user-attachments/assets/c0f27d9d-5d75-44bb-8c6f-6f7efddd9430" />
+<img width="1857" height="1018" alt="PaginaProdutos" src="https://github.com/user-attachments/assets/a529a65e-151a-4040-a13a-28b0185ea39a" />
