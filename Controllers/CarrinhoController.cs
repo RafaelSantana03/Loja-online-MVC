@@ -4,6 +4,7 @@ using LojaOnline.Extensions;
 using LojaOnline.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using QRCoder;
 
 public class CarrinhoController : Controller
 {
@@ -106,4 +107,46 @@ public class CarrinhoController : Controller
     {
         HttpContext.Session.SetObjetoComoJson(CarrinhoSessao, carrinho);
     }
+
+    [HttpGet]
+    public IActionResult Checkout()
+    {
+        var carrinho = ObterCarrinho();
+        return View("Checkout", carrinho);
+    }
+
+    [HttpPost]
+    public IActionResult ConfirmarCheckout()
+    {
+        var carrinho = ObterCarrinho();
+
+        // Gera QR Code Pix simulando uma chave aleatória
+        var total = carrinho.Sum(i => i.Preco * i.Quantidade);
+        string chavePix = "rafael@pix.com.br";
+        string nome = "RetroStore";
+        string cidade = "São Paulo";
+        string valor = total.ToString("F2").Replace(",", ".");
+
+        string payloadPix = GerarPayloadPix(chavePix, nome, cidade, valor);
+        string qrCodeBase64 = GerarQrCode(payloadPix);
+
+        ViewBag.QrCodeBase64 = qrCodeBase64;
+        ViewBag.Valor = valor;
+
+        return View("PixPagamento");
+    }
+    private string GerarPayloadPix(string chave, string nome, string cidade, string valor)
+    {
+        return $"00020126360014BR.GOV.BCB.PIX0114{chave}520400005303986540{valor.Length}{valor}5802BR5913{nome}6009{cidade}62070503***6304";
+    }
+    private string GerarQrCode(string payload)
+    {
+        using var qrGenerator = new QRCodeGenerator();
+        var qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+        using var qrCode = new Base64QRCode(qrCodeData);
+        return qrCode.GetGraphic(10);
+    }
+
+
+
 }

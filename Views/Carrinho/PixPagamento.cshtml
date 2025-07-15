@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Pagamento Pix";
+}
+
+<h2>Pagamento via Pix</h2>
+<p>Total: <strong>R$ @ViewBag.Valor</strong></p>
+<p>Escaneie o QR Code abaixo com seu app bancário:</p>
+
+<img src="data:image/png;base64,@ViewBag.QrCodeBase64" alt="QR Code Pix" />
+
+<a class="btn btn-primary mt-4" asp-controller="Home" asp-action="Index">Voltar para loja</a>
