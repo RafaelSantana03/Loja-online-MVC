@@ -1,0 +1,35 @@
+﻿@model List<LojaOnline.Models.ItemCarrinho>
+@{
+    ViewData["Title"] = "Checkout";
+    decimal total = Model.Sum(item => item.Produto.Preco * item.Quantidade);
+}
+
+<h2>Resumo do Pedido</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Qtd</th>
+            <th>Preço Unitário</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Produto.Nome</td>
+                <td>@item.Quantidade</td>
+                <td>R$ @item.Produto.Preco</td>
+                <td>R$ @(item.Produto.Preco* item.Quantidade)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p class="fw-bold">Total: R$ @total</p>
+
+<form asp-action="FinalizarPedido" method="post">
+    <button class="btn btn-success">Confirmar Pedido e Gerar Pix</button>
+</form>
