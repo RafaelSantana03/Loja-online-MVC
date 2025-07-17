@@ -153,6 +153,29 @@ public class CarrinhoController : Controller
         HttpContext.Session.Remove(CarrinhoSessao);
         return RedirectToAction("Sucesso");
     }
+    [HttpPost]
+    public IActionResult ConfirmarEndereco(string nome, string endereco, string cidade, string estado, string cep)
+    {
+        var carrinho = ObterCarrinho();
+        var total = carrinho.Sum(i => i.Preco * i.Quantidade);
+        string chavePix = "rafael@pix.com.br";
+        string valor = total.ToString("F2").Replace(",", ".");
+
+        string payloadPix = GerarPayloadPix(chavePix, nome, cidade, valor);
+        string qrCodeBase64 = GerarQrCode(payloadPix);
+
+        ViewBag.QrCodeBase64 = qrCodeBase64;
+        ViewBag.Valor = valor;
+
+        ViewBag.Nome = nome;
+        ViewBag.Endereco = endereco;
+        ViewBag.Cidade = cidade;
+        ViewBag.Estado = estado;
+        ViewBag.Cep = cep;
+
+        return View("PixPagamento");
+    }
+
 
 
 

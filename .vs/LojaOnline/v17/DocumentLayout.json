@@ -72,7 +72,7 @@
               "RelativeDocumentMoniker": "Views\\Carrinho\\PixPagamento.cshtml",
               "ToolTip": "A:\\PROJETOS\\LojaOnline\\Views\\Carrinho\\PixPagamento.cshtml",
               "RelativeToolTip": "Views\\Carrinho\\PixPagamento.cshtml",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAmwCoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAABkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-07-15T03:05:32.248Z",
               "EditorCaption": ""
@@ -85,7 +85,7 @@
               "RelativeDocumentMoniker": "Controllers\\CarrinhoController.cs",
               "ToolTip": "A:\\PROJETOS\\LojaOnline\\Controllers\\CarrinhoController.cs",
               "RelativeToolTip": "Controllers\\CarrinhoController.cs",
-              "ViewState": "AgIAAIQAAAAAAAAAAAAjwJsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAJAAAAAAAAAAAAAAwLEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-15T03:01:42.144Z",
               "EditorCaption": ""
@@ -98,9 +98,10 @@
               "RelativeDocumentMoniker": "Views\\Carrinho\\Checkout.cshtml",
               "ToolTip": "A:\\PROJETOS\\LojaOnline\\Views\\Carrinho\\Checkout.cshtml",
               "RelativeToolTip": "Views\\Carrinho\\Checkout.cshtml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAmwCMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAQwCUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-15T02:56:09.298Z"
+              "WhenOpened": "2025-07-15T02:56:09.298Z",
+              "EditorCaption": ""
             }
           ]
         }
