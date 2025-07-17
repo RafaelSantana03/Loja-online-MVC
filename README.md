@@ -45,10 +45,9 @@ O sistema utiliza o ASP.NET Identity para login e registro de usuários. É nece
 
 
 ## 🗂 Estrutura do Projeto
+<img width="410" height="838" alt="Captura de tela 2025-07-17 204024" src="https://github.com/user-attachments/assets/5b03ee10-7b50-4dc5-abc2-3361ff30889f" />
 
 O projeto segue o padrão MVC do ASP.NET, com organização clara para controllers, models, views e área administrativa.
-
-![image11](image11)
 
 ## 🚀 Como Executar
 
