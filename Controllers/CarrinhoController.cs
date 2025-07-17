@@ -147,6 +147,13 @@ public class CarrinhoController : Controller
         return qrCode.GetGraphic(10);
     }
 
+    [HttpPost]
+    public IActionResult ConfirmarPagamento()
+    {
+        HttpContext.Session.Remove(CarrinhoSessao);
+        return RedirectToAction("Sucesso");
+    }
+
 
 
 }
