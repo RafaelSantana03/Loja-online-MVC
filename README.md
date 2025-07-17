@@ -29,19 +29,20 @@ O sistema utiliza o ASP.NET Identity para login e registro de usuários. É nece
 ## 📸 Screenshots
 
 ### Catálogo de Produtos
-![image10](image10)
+<img width="1920" height="1080" alt="produtos" src="https://github.com/user-attachments/assets/ca76571f-9c0e-4217-bfce-e2691546704d" />
 
 ### Carrinho de Compras
-![image1](image1)
+<img width="1920" height="1080" alt="carrinhoComProduto" src="https://github.com/user-attachments/assets/0a2992cc-7850-4059-a414-ca3615e607cd" />
 
 ### Pagamento via Pix
-![image8](image8)
+<img width="1920" height="1080" alt="PagamentoPix" src="https://github.com/user-attachments/assets/debd0168-7d45-4dee-80c5-6196b5743326" />
 
 ### Confirmação de Pedido
-![image9](image9)
+<img width="1920" height="1080" alt="PedidoRelizado" src="https://github.com/user-attachments/assets/8f1820e7-776b-49ba-9142-47b4eadeba38" />
 
 ### Painel Administrativo (Apenas Admins)
-![image6](image6)
+<img width="1920" height="1080" alt="gerenciarProdutos" src="https://github.com/user-attachments/assets/19c201c5-baa8-4fa3-9587-5c39c2778681" />
+
 
 ## 🗂 Estrutura do Projeto
 
