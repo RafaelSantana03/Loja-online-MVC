@@ -23,12 +23,12 @@
  *@
 <body>
     <header class="cabecalho">
-        <div class="logo"><a asp-area="" asp-controller="Home" asp-action="Index">RetroStore</a></div>
+        <div class="logo"><a asp-area="" asp-controller="Produtos" asp-action="Index">RetroStore</a></div>
         <div class="menu">
-            <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            <a asp-area="" asp-controller="Produtos" asp-action="Index">Home</a>
             <a asp-area="" asp-controller="Produtos" asp-action="Index">Produtos</a>
             <a asp-area="" asp-controller="Carrinho" asp-action="Index">Carrinho</a>
-            <a asp-area="" asp-controller="Home" asp-action="Privacidade">Privacidade</a>
+            <a asp-area="" asp-controller="Privacy" asp-action="Index">Privacidade</a>
 
             @if (User.IsInRole("Admin"))
             {

@@ -176,7 +176,4 @@ public class CarrinhoController : Controller
         return View("PixPagamento");
     }
 
-
-
-
 }

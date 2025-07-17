@@ -55,10 +55,14 @@ app.MapControllerRoute(
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 
-// Rota padrão para Controllers
+//// Rota padrão para Controllers
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Produtos}/{action=Index}/{id?}");
+
 
 // Razor Pages (para páginas de login/registro)
 app.MapRazorPages();
